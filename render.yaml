@@ -6,22 +6,27 @@ services:
     plan: free
     dockerfilePath: Dockerfile
     envVars:
+      # --- Configuración básica del servidor ---
       - key: N8N_HOST
         value: 0.0.0.0
       - key: N8N_PORT
-        value: 3000
+        value: 10000
       - key: N8N_PROTOCOL
         value: https
+
+      # --- URL pública (IMPORTANTE) ---
       - key: WEBHOOK_URL
         value: https://n8n-render-dev-21s5.onrender.com/
-      - key: WEBHOOK_TUNNEL_URL
-        value: https://n8n-render-dev-21s5.onrender.com/
-      - key: VUE_APP_URL_BASE_API
-        value: https://n8n-render-dev-21s5.onrender.com/
+
+      # --- CORS para evitar bloqueos en Chrome ---
+      - key: N8N_CORS_ALLOW_ORIGIN
+        value: '*'
+
+      # --- Optimización de memoria ---
       - key: NODE_OPTIONS
         value: --max-old-space-size=256
 
-      # --- Conexión a PostgreSQL ---
+      # --- Configuración de base de datos PostgreSQL ---
       - key: DB_TYPE
         value: postgresdb
       - key: DB_POSTGRESDB_HOST
@@ -41,7 +46,7 @@ services:
       - key: DB_POSTGRESDB_DATABASE
         value: n8n
 
-      # --- Autenticación ---
+      # --- Autenticación básica (generada automáticamente) ---
       - key: N8N_BASIC_AUTH_ACTIVE
         generateValue: true
       - key: N8N_BASIC_AUTH_USER
@@ -49,8 +54,10 @@ services:
       - key: N8N_BASIC_AUTH_PASSWORD
         generateValue: true
 
+    # --- Ruta para verificar que el servicio está vivo ---
     healthCheckPath: /health
 
+# --- Definición de la base de datos ---
 databases:
   - name: n8nSafeguard
     plan: free
