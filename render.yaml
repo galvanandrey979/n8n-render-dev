@@ -10,7 +10,7 @@ services:
       - key: N8N_HOST
         value: 0.0.0.0
       - key: N8N_PORT
-        value: 10000
+        value: 5678
       - key: N8N_PROTOCOL
         value: https
 
@@ -46,7 +46,7 @@ services:
       - key: DB_POSTGRESDB_DATABASE
         value: n8n
 
-      # --- Autenticación básica (generada automáticamente) ---
+      # --- Autenticación básica (opcional, generada automáticamente) ---
       - key: N8N_BASIC_AUTH_ACTIVE
         generateValue: true
       - key: N8N_BASIC_AUTH_USER
