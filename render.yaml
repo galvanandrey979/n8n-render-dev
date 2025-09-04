@@ -13,33 +13,22 @@ services:
       - key: N8N_PROTOCOL
         value: https
       - key: WEBHOOK_URL
-        value: https://n8n.onrender.com/
+        value: https://n8n-render-dev-21s5.onrender.com/
+      - key: WEBHOOK_TUNNEL_URL
+        value: https://n8n-render-dev-21s5.onrender.com/
+      - key: VUE_APP_URL_BASE_API
+        value: https://n8n-render-dev-21s5.onrender.com/
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=256
       - key: DB_TYPE
         value: postgresdb
-      - key: DB_POSTGRESDB_HOST
-        fromDatabase:
-          name: n8nSafeguard
-          property: internalConnectionString
-      - key: DB_POSTGRESDB_PORT
-        value: 5432
-      - key: DB_POSTGRESDB_USER
-        fromDatabase:
-          name: n8nSafeguard-abc123
-          property: user
-      - key: DB_POSTGRESDB_PASSWORD
-        fromDatabase:
-          name: n8nSafeguard-abc123
-          property: password
-      - key: DB_POSTGRESDB_DATABASE
-        value: n8n
+      # ... (variables de PostgreSQL)
       - key: N8N_BASIC_AUTH_ACTIVE
         generateValue: true
       - key: N8N_BASIC_AUTH_USER
         generateValue: true
       - key: N8N_BASIC_AUTH_PASSWORD
         generateValue: true
-      - key: NODE_OPTIONS
-        value: --max-old-space-size=256
     healthCheckPath: /health
 
 databases:
