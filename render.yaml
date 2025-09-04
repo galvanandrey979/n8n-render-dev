@@ -13,6 +13,12 @@ services:
         value: 5678
       - key: N8N_PROTOCOL
         value: https
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      - key: N8N_BASIC_AUTH_USER
+        value: admin
+      - key: N8N_BASIC_AUTH_PASSWORD
+        generateValue: true
 
       # --- URL pública ---
       - key: WEBHOOK_URL
@@ -28,31 +34,19 @@ services:
 
       # --- Configuración de base de datos PostgreSQL ---
       - key: DB_TYPE
-        value: postgresdb
+        value: postgres
       - key: DB_POSTGRESDB_HOST
-        fromDatabase:
-          name: n8nSafeguard
-          property: host
+        value: dpg-d2sugu8d13ps73ffssh6g-a
       - key: DB_POSTGRESDB_PORT
         value: 5432
       - key: DB_POSTGRESDB_USER
-        fromDatabase:
-          name: n8nSafeguard
-          property: user
+        value: n8nsafeguard_user
       - key: DB_POSTGRESDB_PASSWORD
         fromDatabase:
           name: n8nSafeguard
           property: password
       - key: DB_POSTGRESDB_DATABASE
         value: n8nsafeguard
-
-      # --- Autenticación básica ---
-      - key: N8N_BASIC_AUTH_ACTIVE
-        value: "true"
-      - key: N8N_BASIC_AUTH_USER
-        value: admin
-      - key: N8N_BASIC_AUTH_PASSWORD
-        generateValue: true
 
     healthCheckPath: /health
 
