@@ -20,15 +20,35 @@ services:
         value: https://n8n-render-dev-21s5.onrender.com/
       - key: NODE_OPTIONS
         value: --max-old-space-size=256
+
+      # --- Conexión a PostgreSQL ---
       - key: DB_TYPE
         value: postgresdb
-      # ... (variables de PostgreSQL)
+      - key: DB_POSTGRESDB_HOST
+        fromDatabase:
+          name: n8nSafeguard
+          property: internalConnectionString
+      - key: DB_POSTGRESDB_PORT
+        value: 5432
+      - key: DB_POSTGRESDB_USER
+        fromDatabase:
+          name: n8nSafeguard
+          property: user
+      - key: DB_POSTGRESDB_PASSWORD
+        fromDatabase:
+          name: n8nSafeguard
+          property: password
+      - key: DB_POSTGRESDB_DATABASE
+        value: n8n
+
+      # --- Autenticación ---
       - key: N8N_BASIC_AUTH_ACTIVE
         generateValue: true
       - key: N8N_BASIC_AUTH_USER
         generateValue: true
       - key: N8N_BASIC_AUTH_PASSWORD
         generateValue: true
+
     healthCheckPath: /health
 
 databases:
