@@ -14,6 +14,24 @@ services:
         value: https
       - key: WEBHOOK_URL
         value: https://n8n.onrender.com/
+      - key: DB_TYPE
+        value: postgresdb
+      - key: DB_POSTGRESDB_HOST
+        fromDatabase:
+          name: n8nSafeguard
+          property: internalConnectionString
+      - key: DB_POSTGRESDB_PORT
+        value: 5432
+      - key: DB_POSTGRESDB_USER
+        fromDatabase:
+          name: n8nSafeguard-abc123
+          property: user
+      - key: DB_POSTGRESDB_PASSWORD
+        fromDatabase:
+          name: n8nSafeguard-abc123
+          property: password
+      - key: DB_POSTGRESDB_DATABASE
+        value: n8n
       - key: N8N_BASIC_AUTH_ACTIVE
         generateValue: true
       - key: N8N_BASIC_AUTH_USER
@@ -23,3 +41,9 @@ services:
       - key: NODE_OPTIONS
         value: --max-old-space-size=256
     healthCheckPath: /health
+
+databases:
+  - name: n8nSafeguard
+    plan: free
+    region: oregon
+    databaseName: n8n
