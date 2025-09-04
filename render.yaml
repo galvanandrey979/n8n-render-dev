@@ -8,19 +8,19 @@ services:
     envVars:
       # --- Configuración básica del servidor ---
       - key: N8N_HOST
-        value: 0.0.0.0
+        value: n8n-render-dev-21s5.onrender.com
       - key: N8N_PORT
         value: 5678
       - key: N8N_PROTOCOL
         value: https
 
-      # --- URL pública (IMPORTANTE) ---
+      # --- URL pública ---
       - key: WEBHOOK_URL
         value: https://n8n-render-dev-21s5.onrender.com/
-
-      # --- CORS para evitar bloqueos en Chrome ---
-      - key: N8N_CORS_ALLOW_ORIGIN
-        value: '*'
+      - key: WEBHOOK_TUNNEL_URL
+        value: https://n8n-render-dev-21s5.onrender.com/
+      - key: VUE_APP_URL_BASE_API
+        value: https://n8n-render-dev-21s5.onrender.com/
 
       # --- Optimización de memoria ---
       - key: NODE_OPTIONS
@@ -32,7 +32,7 @@ services:
       - key: DB_POSTGRESDB_HOST
         fromDatabase:
           name: n8nSafeguard
-          property: internalConnectionString
+          property: host
       - key: DB_POSTGRESDB_PORT
         value: 5432
       - key: DB_POSTGRESDB_USER
@@ -44,22 +44,20 @@ services:
           name: n8nSafeguard
           property: password
       - key: DB_POSTGRESDB_DATABASE
-        value: n8n
+        value: n8nsafeguard
 
-      # --- Autenticación básica (opcional, generada automáticamente) ---
+      # --- Autenticación básica ---
       - key: N8N_BASIC_AUTH_ACTIVE
-        generateValue: true
+        value: "true"
       - key: N8N_BASIC_AUTH_USER
-        generateValue: true
+        value: admin
       - key: N8N_BASIC_AUTH_PASSWORD
         generateValue: true
 
-    # --- Ruta para verificar que el servicio está vivo ---
     healthCheckPath: /health
 
-# --- Definición de la base de datos ---
 databases:
   - name: n8nSafeguard
     plan: free
     region: oregon
-    databaseName: n8n
+    databaseName: n8nsafeguard
