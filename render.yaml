@@ -6,7 +6,7 @@ services:
     plan: free
     dockerfilePath: Dockerfile
     envVars:
-      # --- Configuración básica del servidor ---
+      # --- Configuración del servidor de n8n ---
       - key: N8N_HOST
         value: n8n-render-dev-21s5.onrender.com
       - key: N8N_PORT
@@ -20,7 +20,7 @@ services:
       - key: N8N_BASIC_AUTH_PASSWORD
         generateValue: true
 
-      # --- URL pública ---
+      # --- URL pública para webhooks ---
       - key: WEBHOOK_URL
         value: https://n8n-render-dev-21s5.onrender.com/
       - key: WEBHOOK_TUNNEL_URL
@@ -32,4 +32,26 @@ services:
       - key: NODE_OPTIONS
         value: --max-old-space-size=256
 
+      # --- Configuración de la base de datos PostgreSQL ---
+      - key: DB_TYPE
+        value: postgres
+      - key: DB_POSTGRESDB_HOST
+        value: dpg-d2sugu8dl3ps73fssh5g-a
+      - key: DB_POSTGRESDB_PORT
+        value: 5432
+      - key: DB_POSTGRESDB_USER
+        value: n8nsafeguard_user
+      - key: DB_POSTGRESDB_PASSWORD
+        fromDatabase:
+          name: n8nSafeguard
+          property: password
+      - key: DB_POSTGRESDB_DATABASE
+        value: n8nsafeguard
+
     healthCheckPath: /health
+
+databases:
+  - name: n8nSafeguard
+    plan: free
+    region: oregon
+    databaseName: n8nsafeguard
