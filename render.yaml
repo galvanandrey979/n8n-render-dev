@@ -32,26 +32,4 @@ services:
       - key: NODE_OPTIONS
         value: --max-old-space-size=256
 
-      # --- Configuración de base de datos PostgreSQL ---
-      - key: DB_TYPE
-        value: postgres
-      - key: DB_POSTGRESDB_HOST
-        value: dpg-d2sugu8d13ps73ffssh6g-a
-      - key: DB_POSTGRESDB_PORT
-        value: 5432
-      - key: DB_POSTGRESDB_USER
-        value: n8nsafeguard_user
-      - key: DB_POSTGRESDB_PASSWORD
-        fromDatabase:
-          name: n8nSafeguard
-          property: password
-      - key: DB_POSTGRESDB_DATABASE
-        value: n8nsafeguard
-
     healthCheckPath: /health
-
-databases:
-  - name: n8nSafeguard
-    plan: free
-    region: oregon
-    databaseName: n8nsafeguard
